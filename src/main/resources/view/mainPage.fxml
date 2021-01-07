@@ -51,12 +51,12 @@
             <Font name="SansSerif Bold" size="18.0" />
          </font>
       </Label>
-      <Label fx:id="humidity1" layoutX="307.0" layoutY="216.0" prefHeight="42.0" prefWidth="177.0" text="Precipitații:">
+      <Label fx:id="precipitation" layoutX="307.0" layoutY="216.0" prefHeight="42.0" prefWidth="177.0" text="Precipitații:">
          <font>
             <Font name="SansSerif Bold" size="18.0" />
          </font>
       </Label>
-      <Label fx:id="humidity11" layoutX="307.0" layoutY="245.0" prefHeight="42.0" prefWidth="177.0" text="Vânt:">
+      <Label fx:id="wind" layoutX="307.0" layoutY="245.0" prefHeight="42.0" prefWidth="177.0" text="Vânt:">
          <font>
             <Font name="SansSerif Bold" size="18.0" />
          </font>
