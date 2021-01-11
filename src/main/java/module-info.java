@@ -1,6 +1,7 @@
 module ro.mta.se.lab {
     requires javafx.controls;
     requires javafx.fxml;
+    requires json.simple;
 
     opens ro.mta.se.lab to javafx.fxml;
     exports ro.mta.se.lab;

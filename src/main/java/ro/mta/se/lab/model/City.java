@@ -21,4 +21,8 @@ public class City {
     public String getCityName() {
         return cityName;
     }
+
+    public String getCountryName() {
+        return countryName;
+    }
 }
