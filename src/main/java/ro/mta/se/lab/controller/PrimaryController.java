@@ -6,6 +6,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -15,7 +17,7 @@ import ro.mta.se.lab.model.City;
 import ro.mta.se.lab.model.Country;
 import ro.mta.se.lab.model.OpenWeatherMapAPI;
 
-import java.io.OptionalDataException;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.DecimalFormat;
@@ -33,6 +35,10 @@ public class PrimaryController implements Initializable {
     private String dayTimeText = "";
     private String iconText = "";
     private String windText = "";
+    private Long sunriseLong;
+    private Long sunsetLong;
+    private String sunriseText;
+    private String sunsetText;
     float KelvinDegree = 0;
 
     @FXML
@@ -57,6 +63,12 @@ public class PrimaryController implements Initializable {
     private Label cityName;
     @FXML
     private Label degree1;
+    @FXML
+    private ImageView weatherIcon;
+    @FXML
+    private Label sunset;
+    @FXML
+    private Label sunrise;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -141,7 +153,7 @@ public class PrimaryController implements Initializable {
     }
 
     @FXML
-    private void updateLabels() {
+    private void updateLabels() throws IOException {
         description.setText(descriptionText);
         humidity.setText("Umiditate: " + humidityText + "%");
         if (KelvinDegree > 0) {
@@ -154,6 +166,9 @@ public class PrimaryController implements Initializable {
         wind.setText("Vânt: " + windText + " km/h");
         precipitation.setText("Precipitații: " + precipitationText + "%");
         dayTime.setText(dayTimeText);
+        weatherIcon.setImage(downloadIcon(iconText));
+        sunrise.setText("Soarele răsare la: " + sunriseText);
+        sunset.setText("Soarele apune la: " +  sunsetText);
     }
 
     private void parseJson(String jsonBuffer) throws ParseException {
@@ -180,6 +195,30 @@ public class PrimaryController implements Initializable {
         Long timezone = (Long) json.get("timezone");
         dayTimeText = convertUnixTimeToRealTime(dt, timezone);
 
+        JSONObject sys = (JSONObject) json.get("sys");
+        sunriseLong = (Long) sys.get("sunrise");
+        sunsetLong = (Long) sys.get("sunset");
+
+        sunriseText = convertUnixTimeToRealTime(sunriseLong, timezone);
+        sunsetText = convertUnixTimeToRealTime(sunsetLong, timezone);
+
+    }
+
+    private Image downloadIcon(String iconName) throws IOException {
+        URL imageURL = new URL("http://openweathermap.org/img/wn/" + iconName + "@2x.png");
+        System.out.println("http://openweathermap.org/img/wn/" + iconName + "@2x.png");
+
+        InputStream in = new BufferedInputStream(imageURL.openStream());
+        OutputStream out = new BufferedOutputStream(new FileOutputStream(iconName + ".png"));
+
+        for (int i; (i = in.read()) != -1; ) {
+            out.write(i);
+        }
+        in.close();
+        out.close();
+
+        Image img = new Image("file:" + iconName + ".png");
+        return img;
     }
 
     private String convertKelvinToCelsius(String degree) {
@@ -188,19 +227,26 @@ public class PrimaryController implements Initializable {
         KelvinDegree -= 273.15;
 
         String CelsiusDegree = String.valueOf(df.format(KelvinDegree));
-
         System.out.println(CelsiusDegree);
+        if(CelsiusDegree.equals("-0")){
+            CelsiusDegree = "0";
+        }
 
         return CelsiusDegree;
     }
 
-    private String convertUnixTimeToRealTime(Long dayTime, Long timezone) {
-        
+    private int countHoursTimezone(Long timezone) {
         int countHours = 1;
         while (timezone != 0) {
             countHours++;
             timezone /= 3600;
         }
+        return countHours;
+    }
+
+    private String convertUnixTimeToRealTime(Long dayTime, Long timezone) {
+
+        int countHours = countHoursTimezone(timezone);
 
         Date date = new Date(dayTime * 1000L);
         SimpleDateFormat jdf = new SimpleDateFormat("EEEE HH:mm aaa");
