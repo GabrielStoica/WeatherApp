@@ -19,13 +19,15 @@ De asemenea, pentru verificarea status_code-ului returnat de un apel GET la URL-
 
 ## Dependinte :red_circle:
 
-Aplicatia WeatherApp foloseste urmatoarele librarii:
+Aplicatia WeatherApp foloseste urmatoarele librarii si framework-uri:
 
 - [Json-simple-1.1.1][1]
 - [JUnit-4.13.1][2]
 - [hamcrest-core-1.3][3]
+- [mockito] 
 
 [1]: https://code.google.com/archive/p/json-simple/downloads
 [2]: https://search.maven.org/search?q=g:junit%20AND%20a:junit
 [3]: https://search.maven.org/artifact/org.hamcrest/hamcrest-core/1.3/jar
+[4]: https://github.com/mockito/mockito
 
