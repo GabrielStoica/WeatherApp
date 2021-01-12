@@ -35,3 +35,4 @@
 [ 15:13:25 - 12/01/2021 ] S-a afisat temperatura pentru orasul Eger din HU
 [ 15:13:27 - 12/01/2021 ] S-a afisat temperatura pentru orasul Larnaca din CY
 [ 15:13:31 - 12/01/2021 ] S-a afisat temperatura pentru orasul Nicosia din CY
+[ 17:43:07 - 12/01/2021 ] S-a afisat temperatura pentru orasul Valletta din MT

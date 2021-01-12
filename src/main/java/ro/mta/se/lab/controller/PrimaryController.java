@@ -123,10 +123,10 @@ public class PrimaryController implements Initializable {
     }
 
     @FXML
-    private void handleShowButton(ActionEvent actionEvent) {
+    public void handleShowButton(ActionEvent actionEvent) {
 
         OpenWeatherMapAPI api = OpenWeatherMapAPI.getInstance();
-        System.out.println(api.getUrlAPI(city.getValue(), country.getValue()));
+        //System.out.println(api.getUrlAPI(city.getValue(), country.getValue()));
 
         try {
 

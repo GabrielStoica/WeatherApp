@@ -1,3 +1,4 @@
+import javafx.event.ActionEvent;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,6 +12,7 @@ import ro.mta.se.lab.controller.PrimaryController;
 import ro.mta.se.lab.interfaces.convertFromXToX;
 import ro.mta.se.lab.model.City;
 import ro.mta.se.lab.model.Country;
+import ro.mta.se.lab.model.OpenWeatherMapAPI;
 import ro.mta.se.lab.model.convertFromKelvinToCelsius;
 
 import java.util.ArrayList;
@@ -20,6 +22,7 @@ public class PrimaryControllerTest {
 
     convertFromKelvinToCelsius convertor;
     PrimaryController controller;
+    OpenWeatherMapAPI api;
     private static HashMap<Country, ArrayList<City>> locationMap = new HashMap<Country, ArrayList<City>>();
 
 
@@ -36,6 +39,7 @@ public class PrimaryControllerTest {
 
         convertor = mock(convertFromKelvinToCelsius.class);
         controller = new PrimaryController(locationMap);
+        api = mock(OpenWeatherMapAPI.class);
 
     }
 
@@ -53,6 +57,20 @@ public class PrimaryControllerTest {
 
         try {
             Mockito.verify(convertor).verify("2", "275", 273.15);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void verifyAPI(){
+        ActionEvent ev = null;
+        when(api.getUrlAPI("Ramnicu Sarat", "RO")).thenReturn("http://api.openweathermap.org/data/2.5/weather?q=Ramnicu Sarat,RO&appid=d2760c0b8ea18c199892b4d1a3bb8c1f");
+
+        controller.handleShowButton(ev);
+
+        try {
+            Mockito.verify(api).getUrlAPI("Ramnicu Sarat", "RO");
         } catch (Exception e) {
             e.printStackTrace();
         }
