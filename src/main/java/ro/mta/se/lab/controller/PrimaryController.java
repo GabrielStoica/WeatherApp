@@ -16,16 +16,21 @@ import org.json.simple.parser.ParseException;
 import ro.mta.se.lab.model.City;
 import ro.mta.se.lab.model.Country;
 import ro.mta.se.lab.model.OpenWeatherMapAPI;
+import ro.mta.se.lab.model.convertFromKelvinToCelsius;
 
 import java.io.*;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class PrimaryController implements Initializable {
 
+    convertFromKelvinToCelsius convert = new convertFromKelvinToCelsius();
     private HashMap<Country, ArrayList<City>> locationMap;
     private ArrayList<City> citiesToAdd;
     private String descriptionText = "";
@@ -124,32 +129,33 @@ public class PrimaryController implements Initializable {
         System.out.println(api.getUrlAPI(city.getValue(), country.getValue()));
 
         try {
-            URL url = new URL(api.getUrlAPI(city.getValue(), country.getValue()));
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("GET");
-            connection.connect();
-            int code = connection.getResponseCode();
-            if (code != 200) {
-                throw new RuntimeException("HTTP GET Response code was: " + code);
-            } else {
-                String jsonResponse = "";
 
-                Scanner scanner = new Scanner(url.openStream());
-                while (scanner.hasNextLine()) {
-                    jsonResponse += scanner.nextLine();
-                }
-                scanner.close();
-
-                setCity(city.getValue());
-                degree1.setVisible(true);
-                parseJson(jsonResponse);
-                updateLabels();
-            }
+            String jsonResponse = api.getJSONResponse(city.getValue(), country.getValue());
+            setCity(city.getValue());
+            degree1.setVisible(true);
+            parseJson(jsonResponse);
+            updateLabels();
+            logInFile();
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+    }
+
+    private void logInFile() throws IOException {
+
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("[HH:mm:ss - dd/MM/yyyy]");
+        LocalDateTime now = LocalDateTime.now();
+
+        String textToAppend = " S-a afisat temperatura pentru orasul " + city.getValue() + " din " + country.getValue() + "\n";
+
+        BufferedWriter writer = new BufferedWriter(
+                new FileWriter("log.txt", true));
+        writer.write("[ " + dtf.format(now) + " ]");
+        writer.write(textToAppend);
+
+        writer.close();
     }
 
     @FXML
@@ -162,13 +168,16 @@ public class PrimaryController implements Initializable {
         } else {
             degree.setLayoutX(153);
         }
+
+        // degree1.setLayoutX(cityName+5);
+
         degree.setText(degreeText);
         wind.setText("Vânt: " + windText + " km/h");
         precipitation.setText("Precipitații: " + precipitationText + "%");
         dayTime.setText(dayTimeText);
         weatherIcon.setImage(downloadIcon(iconText));
         sunrise.setText("Soarele răsare la: " + sunriseText);
-        sunset.setText("Soarele apune la: " +  sunsetText);
+        sunset.setText("Soarele apune la: " + sunsetText);
     }
 
     private void parseJson(String jsonBuffer) throws ParseException {
@@ -183,7 +192,8 @@ public class PrimaryController implements Initializable {
 
         JSONObject main = (JSONObject) json.get("main");
         humidityText = main.get("humidity").toString();
-        degreeText = convertKelvinToCelsius(main.get("temp").toString());
+        degreeText = convert.getXDegree(main.get("temp").toString(), 273.15);
+        //degreeText = convertKelvinToCelsius(main.get("temp").toString());
 
         JSONObject wind = (JSONObject) json.get("wind");
         windText = wind.get("speed").toString();
@@ -221,21 +231,25 @@ public class PrimaryController implements Initializable {
         return img;
     }
 
-    private String convertKelvinToCelsius(String degree) {
+    public boolean convertKelvinToCelsius(String degree) {
+        String testDegree = convert.getXDegree(degree, 273.15);
+
         DecimalFormat df = new DecimalFormat("0");
         KelvinDegree = Float.parseFloat(degree);
         KelvinDegree -= 273.15;
 
         String CelsiusDegree = String.valueOf(df.format(KelvinDegree));
         System.out.println(CelsiusDegree);
-        if(CelsiusDegree.equals("-0")){
+        if (CelsiusDegree.equals("-0")) {
             CelsiusDegree = "0";
         }
 
-        return CelsiusDegree;
+        if (CelsiusDegree.equals(testDegree))
+            return true;
+        else return false;
     }
 
-    private int countHoursTimezone(Long timezone) {
+    public int countHoursTimezone(Long timezone) {
         int countHours = 1;
         while (timezone != 0) {
             countHours++;
@@ -267,5 +281,11 @@ public class PrimaryController implements Initializable {
 
     public PrimaryController(HashMap<Country, ArrayList<City>> locationMap) {
         this.locationMap = locationMap;
+    }
+
+    public boolean verify(String my_degree, String degree, double scale) {
+        if (my_degree.equals(convert.getXDegree(degree, scale)))
+            return true;
+        return false;
     }
 }

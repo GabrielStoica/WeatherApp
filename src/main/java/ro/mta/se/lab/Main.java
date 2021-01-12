@@ -36,6 +36,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         initCountryCityData();
+
         scene = new Scene(loadFXML("mainPage"), 640, 480);
         stage.setTitle("Aplicație verifică vremea");
         stage.setScene(scene);
