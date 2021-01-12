@@ -24,7 +24,7 @@ Aplicatia WeatherApp foloseste urmatoarele librarii si framework-uri:
 - [Json-simple-1.1.1][1]
 - [JUnit-4.13.1][2]
 - [hamcrest-core-1.3][3]
-- [mockito] 
+- [mockito][4]
 
 [1]: https://code.google.com/archive/p/json-simple/downloads
 [2]: https://search.maven.org/search?q=g:junit%20AND%20a:junit
