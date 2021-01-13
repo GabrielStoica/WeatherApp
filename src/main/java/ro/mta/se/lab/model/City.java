@@ -26,3 +26,15 @@ public class City {
         return countryName;
     }
 }
+
+/*
+@startuml
+
+class City{
+ - cityName : String
+ - latitude : String
+
+  }
+@enduml
+
+ */

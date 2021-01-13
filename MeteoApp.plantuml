@@ -1,0 +1,191 @@
+@startuml
+
+title __METEOAPP's Class Diagram__\n
+
+
+    namespace ro.mta.se.lab {
+          class ro.mta.se.lab.Main {
+              - cityName : String
+              - countries : ArrayList<Country>
+              - countryName : String
+              - id : String
+              {static} - inputFilename : String
+              - input_lineBuffer : String
+              - latitude : String
+              - lineBuffer : String[]
+              {static} - locationMap : HashMap<Country, ArrayList<City>>
+              - longitude : String
+              {static} - scene : Scene
+              {static} + main()
+              {static} + setRoot()
+              + start()
+              - initCountryCityData()
+              {static} - loadFXML()
+          }
+    }
+
+
+
+
+    namespace ro.mta.se.lab {
+      namespace controller {
+        class ro.mta.se.lab.controller.PrimaryController {
+                   ~ KelvinDegree : float
+                   - citiesToAdd : ArrayList<City>
+                   - city : ComboBox<String>
+                   - cityName : Label
+                   - country : ComboBox<String>
+                   - dayTime : Label
+                   - dayTimeText : String
+                   - degree : Label
+                   - degree1 : Label
+                   - degreeText : String
+                   - description : Label
+                   - descriptionText : String
+                   - humidity : Label
+                   - humidityText : String
+                   - iconText : String
+                   - locationMap : HashMap<Country, ArrayList<City>>
+                   - precipitation : Label
+                   - precipitationText : String
+                   - showButton : Button
+                   - sunrise : Label
+                   - sunriseLong : Long
+                   - sunriseText : String
+                   - sunset : Label
+                   - sunsetLong : Long
+                   - sunsetText : String
+                   - weatherIcon : ImageView
+                   - wind : Label
+                   - windText : String
+                   + PrimaryController()
+                   + convertKelvinToCelsius()
+                   + countHoursTimezone()
+                   + handleShowButton()
+                   + initialize()
+                   + verify()
+                   - convertUnixTimeToRealTime()
+                   - downloadIcon()
+                   - handleCity()
+                   - handleCountry()
+                   - logInFile()
+                   - parseJson()
+                   - setCity()
+                   - updateLabels()
+               }
+      }
+    }
+
+
+
+
+    namespace ro.mta.se.lab {
+      namespace interfaces {
+        interface ro.mta.se.lab.interfaces.convertFromXToX {
+            {abstract} + convertDegree()
+            {abstract} + getXDegree()
+            {abstract} + verify()
+        }
+      }
+    }
+
+
+
+
+    namespace ro.mta.se.lab {
+      namespace interfaces {
+          interface ro.mta.se.lab.interfaces.countHours {
+              {abstract} + getCountHours()
+          }
+      }
+
+  }
+
+
+
+    namespace ro.mta.se.lab {
+      namespace model {
+        class ro.mta.se.lab.model.City {
+            - ID : String
+            - cityName : String
+            - countryName : String
+            - latitude : String
+            - longitude : String
+            + City()
+            + getCityName()
+            + getCountryName()
+        }
+      }
+    }
+
+
+
+
+    namespace ro.mta.se.lab {
+      namespace model {
+        class ro.mta.se.lab.model.Country {
+            - cities : ArrayList<City>
+            - countryName : String
+            + Country()
+            + addCity()
+            + getCountryName()
+            + printCities()
+        }
+      }
+    }
+
+
+
+
+    namespace ro.mta.se.lab {
+      namespace model {
+        class ro.mta.se.lab.model.OpenWeatherMapAPI {
+            - cityName : String
+            - countryName : String
+            {static} - instance : OpenWeatherMapAPI
+            {static} - keyAPI : String
+            - urlAPI : String
+            {static} + getInstance()
+            + getJSONResponse()
+            + getUrlAPI()
+            - OpenWeatherMapAPI()
+        }
+      }
+    }
+
+
+
+
+    namespace ro.mta.se.lab {
+      namespace model {
+        class ro.mta.se.lab.model.convertFromKelvinToCelsius {
+            - CelsiusDegree : String
+            - KelvinDegree : double
+            + convertDegree()
+            + getXDegree()
+            + verify()
+        }
+      }
+    }
+
+  
+
+  ro.mta.se.lab.Main -up-|> javafx.application.Application
+  ro.mta.se.lab.controller.PrimaryController .up.|> javafx.fxml.Initializable
+  ro.mta.se.lab.controller.PrimaryController o-- ro.mta.se.lab.model.convertFromKelvinToCelsius : convert
+  ro.mta.se.lab.model.convertFromKelvinToCelsius .up.|> ro.mta.se.lab.interfaces.convertFromXToX
+  ro.mta.se.lab.model.City .up.|> ro.mta.se.lab.controller.PrimaryController
+  ro.mta.se.lab.model.Country .up.|> ro.mta.se.lab.controller.PrimaryController
+  ro.mta.se.lab.model.OpenWeatherMapAPI .up.|> ro.mta.se.lab.controller.PrimaryController
+
+
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml
