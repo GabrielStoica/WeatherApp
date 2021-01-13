@@ -3,6 +3,14 @@ package ro.mta.se.lab.model;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Clasa responsabila cu retinerea datelor unei tari,
+ * dupa parcurgerea fisierului de intrare initial
+ * Retine o lista cu toate orasele din tara respectiva si
+ * numele tarii
+ *
+ * @author: Stoica Gabriel
+ */
 public class Country {
     private ArrayList<City> cities;
     private String countryName;

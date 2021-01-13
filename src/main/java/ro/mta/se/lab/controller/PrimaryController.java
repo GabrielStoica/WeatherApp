@@ -28,6 +28,14 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
+/**
+ * Clasa controller responsabila cu gestionarea actiunilor din cadrul interfetei grafice
+ * Face legatura intre toate clasele prezentei aplicatii
+ *
+ * @author: Stoica Gabriel
+ *
+ */
+
 public class PrimaryController implements Initializable {
 
     convertFromKelvinToCelsius convert = new convertFromKelvinToCelsius();
@@ -75,6 +83,13 @@ public class PrimaryController implements Initializable {
     @FXML
     private Label sunrise;
 
+    /**
+     * Functie apelata initial, responsabila cu initializarea
+     * ferestrei initiale
+     *
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -96,6 +111,12 @@ public class PrimaryController implements Initializable {
 
     }
 
+    /**
+     * Functie responsabila cu gestionarea actiunii aparute
+     * in urma selectiei tarii
+     *
+     * @param actionEvent
+     */
     @FXML
     private void handleCountry(ActionEvent actionEvent) {
         city.getItems().clear();
@@ -114,6 +135,12 @@ public class PrimaryController implements Initializable {
 
     }
 
+    /**
+     * Functie responsabila cu gestionarea actiunii aparute
+     * in urma selectiei orasului
+     *
+     * @param actionEvent
+     */
     @FXML
     private void handleCity(ActionEvent actionEvent) {
         //country.getItems().clear();
@@ -122,6 +149,18 @@ public class PrimaryController implements Initializable {
 
     }
 
+    /**
+     * Functie responsabila cu gestionarea actiunii aparute
+     * in urma apsarii butonului de "Afisare vreme"
+     * Se instantiaza clasa OpenWeatherAPI, in urma caruia se face
+     * un request de tip GET pentru a obtine informatiile codificate
+     * sub forma .json
+     * In final cu ajutorul functiei parseJson() se parcurge continutul
+     * raspunsului primit prin intermediul API-ului si se actualizeaza
+     * campurile din interfata grafica
+     *
+     * @param actionEvent
+     */
     @FXML
     public void handleShowButton(ActionEvent actionEvent) {
 
@@ -143,6 +182,13 @@ public class PrimaryController implements Initializable {
 
     }
 
+    /**
+     * Functie responsabila cu logarea istoricului
+     * afisarilor.
+     * In fisierul "log.txt" se vor stoca numele tarii, locatia si
+     * ora la care a fost cautata vremea.
+     * @throws IOException
+     */
     private void logInFile() throws IOException {
 
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("[HH:mm:ss - dd/MM/yyyy]");
@@ -158,6 +204,13 @@ public class PrimaryController implements Initializable {
         writer.close();
     }
 
+    /**
+     * Functie responsabila cu actualizarea
+     * Label-urilor si ImageView-ului din cadrul
+     * interfetei grafice
+     *
+     * @throws IOException
+     */
     @FXML
     private void updateLabels() throws IOException {
         description.setText(descriptionText);
@@ -180,6 +233,14 @@ public class PrimaryController implements Initializable {
         sunset.setText("Soarele apune la: " + sunsetText);
     }
 
+    /**
+     * Functie responsabila cu prelucarea raspunsului
+     * de tip .json primit in urma apelului GET la serverul
+     * OpenWeatherMap
+     *
+     * @param jsonBuffer
+     * @throws ParseException
+     */
     private void parseJson(String jsonBuffer) throws ParseException {
         JSONParser jsonParser = new JSONParser();
         JSONObject json = (JSONObject) jsonParser.parse(jsonBuffer);
@@ -214,6 +275,14 @@ public class PrimaryController implements Initializable {
 
     }
 
+    /**
+     * Functie responsabila de descarcarea icon-ului specific
+     * tipului de vreme
+     *
+     * @param iconName numele icon-ului
+     * @return ImageView img returneaza un obiect de tip Image
+     * @throws IOException
+     */
     private Image downloadIcon(String iconName) throws IOException {
         URL imageURL = new URL("http://openweathermap.org/img/wn/" + iconName + "@2x.png");
         System.out.println("http://openweathermap.org/img/wn/" + iconName + "@2x.png");
@@ -230,6 +299,15 @@ public class PrimaryController implements Initializable {
         Image img = new Image("file:" + iconName + ".png");
         return img;
     }
+
+    /**
+     * Functie DE TEST responsabila cu conversia gradelor Kelvin
+     * in grade Celsius pentru a putea fi afisate corespunzator
+     * in cadrul interfei grafice
+     *
+     * @param degree
+     * @return boolean
+     */
 
     public boolean convertKelvinToCelsius(String degree) {
         String testDegree = convert.getXDegree(degree, 273.15);
@@ -249,6 +327,13 @@ public class PrimaryController implements Initializable {
         else return false;
     }
 
+    /**
+     * Functie responsabila cu conversia timestamp-ului
+     * zonei geografice specific fiecarei locatii
+     *
+     * @param timezone
+     * @return
+     */
     public int countHoursTimezone(Long timezone) {
         int countHours = 1;
         while (timezone != 0) {
@@ -258,6 +343,14 @@ public class PrimaryController implements Initializable {
         return countHours;
     }
 
+    /**
+     * Functie responsabila cu conversia timestamp-ului
+     * orei curente la care a fost facuta solicitarea de tip GET
+     * catre serverul OpenWeatherMap
+     * @param dayTime
+     * @param timezone
+     * @return
+     */
     private String convertUnixTimeToRealTime(Long dayTime, Long timezone) {
 
         int countHours = countHoursTimezone(timezone);

@@ -17,6 +17,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Clasa Main responsabila cu integrarea tuturor celorlalte clase
+ *
+ * @author: Stoica Gabriel-Marius
+ */
 public class Main extends Application {
 
     private static Scene scene;
@@ -43,6 +48,12 @@ public class Main extends Application {
         stage.show();
     }
 
+    /**
+     * Functie responsabila cu initializarea setului de date: Tari + orase
+     * Citeste din fisierului de intrare datele si realizeaza o mapare a acestora
+     * 
+     * @throws FileNotFoundException
+     */
     private void initCountryCityData() throws FileNotFoundException {
         File inFile = new File(inputFilename);
         Scanner readFromFile = new Scanner(inFile);

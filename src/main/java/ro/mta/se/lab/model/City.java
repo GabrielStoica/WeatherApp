@@ -2,6 +2,14 @@ package ro.mta.se.lab.model;
 
 import java.util.List;
 
+/**
+ * Clasa responsabila cu retinerea datelor unei oras,
+ * dupa parcurgerea fisierului de intrare initial
+ *
+ *
+ * @author: Stoica Gabriel
+ */
+
 public class City {
 
     private String cityName;
@@ -27,14 +35,3 @@ public class City {
     }
 }
 
-/*
-@startuml
-
-class City{
- - cityName : String
- - latitude : String
-
-  }
-@enduml
-
- */

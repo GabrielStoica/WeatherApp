@@ -168,6 +168,7 @@ title __METEOAPP's Class Diagram__\n
       }
     }
 
+
   
 
   ro.mta.se.lab.Main -up-|> javafx.application.Application
