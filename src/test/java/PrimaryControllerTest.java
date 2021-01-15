@@ -18,6 +18,12 @@ import ro.mta.se.lab.model.convertFromKelvinToCelsius;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * Clasa folosita pentru testarea unitara cu ajutorul
+ * obiectelor mock si a librariei Mockito
+ *
+ * @author: Stoica Gabriel
+ */
 public class PrimaryControllerTest {
 
     convertFromKelvinToCelsius convertor;
@@ -25,7 +31,14 @@ public class PrimaryControllerTest {
     OpenWeatherMapAPI api;
     private static HashMap<Country, ArrayList<City>> locationMap = new HashMap<Country, ArrayList<City>>();
 
-
+    /**
+     * Functie care initializeaza obiectele folosite
+     * de-alungul testarii
+     * Clasa care PrimaryController foloseste in implementarea sa
+     * clasele convertFromKelvinToCelsius si OpenWeatherMapAPI
+     * Pentru acestea doua din urma se va face mock
+     *
+     */
     @Before
     public void setUp() {
         ArrayList<City> cityList = new ArrayList<City>();
@@ -43,6 +56,12 @@ public class PrimaryControllerTest {
 
     }
 
+    /**
+     * Testarea comportamentului clasei PrimaryController,
+     * atunci cand se verifica daca temperatura intoarsa de
+     * clasa convertFromKelvinToCelsius, prin intermediul
+     * functiei getXDegree(), este corecta/gresita
+     */
     @Test
     public void convertKelvinToCelsius() {
         assertTrue(controller.verify("2", "275", 273.15));
@@ -50,6 +69,11 @@ public class PrimaryControllerTest {
         assertTrue(controller.verify("3", "276", 273.15));
     }
 
+    /**
+     * Acelasi test ca ma sus, doar ca de data aceasta testul va esua,
+     * pentru ca in clasa PrimaryController nu se va mai apela
+     * functia getXDegree() din cadrul clasei convertFromKelvinToCelsius
+     */
     @Test
     public void verify() {
         when(convertor.getXDegree("275", 273.15)).thenReturn("2");
@@ -62,17 +86,17 @@ public class PrimaryControllerTest {
         }
     }
 
+    /**
+     * Functie care verifica daca string-ul ce urmeaza a fi
+     * trimis catre server prin metoda GET este corect.
+     * 
+     */
     @Test
-    public void verifyAPI(){
+    public void verifyAPI() {
         ActionEvent ev = null;
         when(api.getUrlAPI("Ramnicu Sarat", "RO")).thenReturn("http://api.openweathermap.org/data/2.5/weather?q=Ramnicu Sarat,RO&appid=d2760c0b8ea18c199892b4d1a3bb8c1f");
 
-        controller.handleShowButton(ev);
-
-        try {
-            Mockito.verify(api).getUrlAPI("Ramnicu Sarat", "RO");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        assertEquals("http://api.openweathermap.org/data/2.5/weather?q=Ramnicu Sarat,RO&appid=d2760c0b8ea18c199892b4d1a3bb8c1f", api.getUrlAPI("Ramnicu Sarat", "RO"));
+        assertNotEquals("http://api.openweathermap.org/data/2.5/weather?q=Ramnicu Sarat,RO&appid=d2760c0b8ea18c199892b4d1a3bb8c1f", api.getUrlAPI("Brasov", "RO"));
     }
 }

@@ -8,6 +8,14 @@ import java.net.HttpRetryException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+/**
+ * Clasa folosita pentru testare unitara cu ajutorul JUnit
+ * Vom testa comportamentul clasei independete OpenWeatherMapAPI,
+ * responsabila cu tot procesul de interactiune cu API-ul celor de la
+ * OpenWeatherMap
+ *
+ * @author: Stoica Gabriel
+ */
 public class OpenWeatherMapAPITest {
 
     public OpenWeatherMapAPI api;
@@ -21,14 +29,31 @@ public class OpenWeatherMapAPITest {
         api = OpenWeatherMapAPI.getInstance();
     }
 
+    /**
+     * Functie care testeaza daca URL-ul ce urmeaza a fi
+     * folosit pentru a obtine datele vremii din Buzau, Romania,
+     * si Brasov, Romania,
+     * este construit corect in cadrul functiei getUrlAPI() din cadrul
+     * clasei OpenWeatherMapAPI.
+     */
     @Test
     public void cityCountry() {
         String urlAPI = api.getUrlAPI("Buzau", "RO");
         if (!urlAPI.equals("http://api.openweathermap.org/data/2.5/weather?q=Buzau,RO&appid=" + keyAPI)) {
             Assert.fail();
         }
-    }
 
+        String urlAPI2 = api.getUrlAPI("Brasov", "RO");
+        if (!urlAPI2.equals("http://api.openweathermap.org/data/2.5/weather?q=Brasov,RO&appid=" + keyAPI)) {
+            Assert.fail();
+        }
+    }
+    /**
+     * Functie care testeaza daca URL-ul ce urmeaza a fi
+     * folosit pentru a obtine datele vremei din Ramnicu Sarat, Romania,
+     * este construit corect in cadrul functiei getUrlAPI() din cadrul
+     * clasei OpenWeatherMapAPI.
+     */
     @Test
     public void cityCountry2(){
         String urlAPI = api.getUrlAPI("Ramnicu Sarat", "RO");
@@ -37,6 +62,12 @@ public class OpenWeatherMapAPITest {
         }
     }
 
+    /**
+     * Functie care testeaza daca raspunsul primit de la serverul
+     * OpenWeatherMap in urma cererii GET este invalid
+     * Se foloseste intentionat un nume de oras incorect
+     * pentru a demonstra comportamentul corect al functiei getJSONResponse()
+     */
     @Test
     public void throwsIOException() throws IOException {
         String cityName = "Ramnicu Sarat123";
