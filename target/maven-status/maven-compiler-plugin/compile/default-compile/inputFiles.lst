@@ -1,6 +1,8 @@
+D:\Facultate\ANUL IV\INGINERIA_PROGRAMELOR\TEMA2\MeteoApp\src\main\java\ro\mta\se\lab\interfaces\convertFromXToX.java
 D:\Facultate\ANUL IV\INGINERIA_PROGRAMELOR\TEMA2\MeteoApp\src\main\java\ro\mta\se\lab\model\OpenWeatherMapAPI.java
 D:\Facultate\ANUL IV\INGINERIA_PROGRAMELOR\TEMA2\MeteoApp\src\main\java\ro\mta\se\lab\Main.java
 D:\Facultate\ANUL IV\INGINERIA_PROGRAMELOR\TEMA2\MeteoApp\src\main\java\ro\mta\se\lab\model\City.java
 D:\Facultate\ANUL IV\INGINERIA_PROGRAMELOR\TEMA2\MeteoApp\src\main\java\ro\mta\se\lab\controller\PrimaryController.java
 D:\Facultate\ANUL IV\INGINERIA_PROGRAMELOR\TEMA2\MeteoApp\src\main\java\ro\mta\se\lab\model\Country.java
-D:\Facultate\ANUL IV\INGINERIA_PROGRAMELOR\TEMA2\MeteoApp\src\main\java\module-info.java
+D:\Facultate\ANUL IV\INGINERIA_PROGRAMELOR\TEMA2\MeteoApp\src\main\java\ro\mta\se\lab\model\convertFromKelvinToCelsius.java
+D:\Facultate\ANUL IV\INGINERIA_PROGRAMELOR\TEMA2\MeteoApp\src\main\java\ro\mta\se\lab\interfaces\countHours.java

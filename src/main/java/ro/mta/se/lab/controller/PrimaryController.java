@@ -83,6 +83,12 @@ public class PrimaryController implements Initializable {
     @FXML
     private Label sunrise;
 
+    public PrimaryController(HashMap<Country, ArrayList<City>> locationMap) {
+
+        this.locationMap = new HashMap<>();
+        this.locationMap =  locationMap;
+    }
+
     /**
      * Functie apelata initial, responsabila cu initializarea
      * ferestrei initiale
@@ -372,9 +378,6 @@ public class PrimaryController implements Initializable {
         cityName.setText(city);
     }
 
-    public PrimaryController(HashMap<Country, ArrayList<City>> locationMap) {
-        this.locationMap = locationMap;
-    }
 
     public boolean verify(String my_degree, String degree, double scale) {
         if (my_degree.equals(convert.getXDegree(degree, scale)))

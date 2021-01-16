@@ -14,13 +14,12 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Scanner;
 
 /**
  * Clasa Main responsabila cu integrarea tuturor celorlalte clase
  *
- * @author: Stoica Gabriel-Marius
+ * @author Stoica Gabriel-Marius
  */
 public class Main extends Application {
 
@@ -40,6 +39,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
+
         initCountryCityData();
 
         scene = new Scene(loadFXML("mainPage"), 640, 480);
@@ -55,12 +55,13 @@ public class Main extends Application {
      * @throws FileNotFoundException
      */
     private void initCountryCityData() throws FileNotFoundException {
-        File inFile = new File(inputFilename);
+        File inFile = new File("input_data.txt");
         Scanner readFromFile = new Scanner(inFile);
         int first_line = 0;
 
         while (readFromFile.hasNextLine()) {
             input_lineBuffer = readFromFile.nextLine();
+            //System.out.println(input_lineBuffer);
             lineBuffer = input_lineBuffer.split("&");
 
             id = lineBuffer[0];
@@ -107,7 +108,7 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
-        launch();
+        launch(args);
     }
 
 }

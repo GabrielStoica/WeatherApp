@@ -1,6 +1,8 @@
 ro\mta\se\lab\model\OpenWeatherMapAPI.class
-module-info.class
+ro\mta\se\lab\interfaces\convertFromXToX.class
+ro\mta\se\lab\interfaces\countHours.class
 ro\mta\se\lab\model\Country.class
 ro\mta\se\lab\model\City.class
+ro\mta\se\lab\model\convertFromKelvinToCelsius.class
 ro\mta\se\lab\controller\PrimaryController.class
 ro\mta\se\lab\Main.class
