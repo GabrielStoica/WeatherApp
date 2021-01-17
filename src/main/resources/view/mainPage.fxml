@@ -5,8 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/11.0.1"
-            xmlns:fx="http://javafx.com/fxml/1" >
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <Label layoutX="126.0" layoutY="21.0" text="Țară:">
             <font>
@@ -36,7 +35,7 @@
             <Font name="SansSerif Bold" size="18.0" />
          </font>
       </Label>
-      <Label fx:id="degree" layoutX="153.0" layoutY="168.0" prefHeight="138.0" prefWidth="136.0" textAlignment="RIGHT">
+      <Label fx:id="degree" layoutX="153.0" layoutY="168.0" prefHeight="138.0" prefWidth="178.0" textAlignment="RIGHT">
          <font>
             <Font name="SansSerif Bold" size="120.0" />
          </font>

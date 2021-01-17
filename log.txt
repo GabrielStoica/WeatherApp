@@ -48,3 +48,8 @@
 [ 18:16:10 - 16/01/2021 ] S-a afisat temperatura pentru orasul Vienna din AT
 [ 18:23:59 - 16/01/2021 ] S-a afisat temperatura pentru orasul Cork din IE
 [ 20:01:23 - 16/01/2021 ] S-a afisat temperatura pentru orasul Eger din HU
+[ 20:20:09 - 16/01/2021 ] S-a afisat temperatura pentru orasul Bucharest din RO
+[ 15:50:29 - 17/01/2021 ] S-a afisat temperatura pentru orasul Razvilka din RU
+[ 15:51:18 - 17/01/2021 ] S-a afisat temperatura pentru orasul Razvilka din RU
+[ 15:51:22 - 17/01/2021 ] S-a afisat temperatura pentru orasul Moscow din RU
+[ 15:51:30 - 17/01/2021 ] S-a afisat temperatura pentru orasul Razvilka din RU
