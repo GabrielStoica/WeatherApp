@@ -31,3 +31,11 @@ Aplicatia WeatherApp foloseste urmatoarele librarii si framework-uri:
 [3]: https://search.maven.org/artifact/org.hamcrest/hamcrest-core/1.3/jar
 [4]: https://github.com/mockito/mockito
 
+## Diagrama cazurilor de utilizare
+
+![diagrama cazurilor de utilizare](https://i.ibb.co/28ZFKr4/diagrama-Cazurilor-De-Utilizare.jpg)
+
+## Diagrama claselor 
+
+![diagrama claselor](https://i.ibb.co/KymHMXW/diagrama-Claselor.png)
+
